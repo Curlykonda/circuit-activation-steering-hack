@@ -19,6 +19,7 @@ def _seed_everything(seed=_DEFAULT_RANDOM_SEED):
     random.seed(seed)
     np.random.seed(seed)
     torch.seed(seed)
+    torch.manual_seed(seed)
 
 
 if __name__ == "__main__":
