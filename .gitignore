@@ -160,3 +160,4 @@ cython_debug/
 #.idea/
 
 model_store/
+data/toxicity_explorer.ipynb
