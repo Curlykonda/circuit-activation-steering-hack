@@ -23,4 +23,5 @@ def _seed_everything(seed=_DEFAULT_RANDOM_SEED):
 
 
 if __name__ == "__main__":
+    _seed_everything()
     logger.info("Hello World!")
