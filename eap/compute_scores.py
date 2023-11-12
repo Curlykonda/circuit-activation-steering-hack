@@ -26,12 +26,13 @@ def main():
         data_file="data/231112_11-09_agreeableness.jsonl",
         batch_size=h_params.batch_size,
         tokenizer=model.tokenizer,
+        max_length=h_params.max_seq_len,
     )
 
     for batch in dataloader:
         positive, negative = batch
-        print(positive)
-        print(negative)
+        print(positive["input_ids"])
+        print(negative["input_ids"])
         break
 
 

@@ -18,6 +18,8 @@ class ContrastivePairsDataset(Dataset):
             for obj in reader:
                 data.append((obj["positive"], obj["negative"]))
 
+        return data
+
     def __len__(self):
         return len(self.data_pairs)
 
@@ -47,8 +49,8 @@ class ContrastivePairsDataset(Dataset):
 
 
 def collate_fn(batch: dict) -> Tuple[dict, dict]:
-    pos_ids, neg_ids = zip([(item["pos_ids"], item["neg_ids"]) for item in batch])
-    pos_mask, neg_mask = zip([(item["pos_mask"], item["neg_mask"]) for item in batch])
+    pos_ids, neg_ids = zip(*[(item["pos_ids"], item["neg_ids"]) for item in batch])
+    pos_mask, neg_mask = zip(*[(item["pos_mask"], item["neg_mask"]) for item in batch])
 
     return (
         {
@@ -62,8 +64,10 @@ def collate_fn(batch: dict) -> Tuple[dict, dict]:
     )
 
 
-def get_dataloader(data_file: str, batch_size: int, tokenizer, shuffle: bool = True):
-    dataset = ContrastivePairsDataset(data_file, tokenizer, max_length=64)
+def get_dataloader(
+    data_file: str, batch_size: int, tokenizer, max_length: int, shuffle: bool = True
+):
+    dataset = ContrastivePairsDataset(data_file, tokenizer, max_length)
     return DataLoader(
         dataset, batch_size=batch_size, shuffle=shuffle, collate_fn=partial(collate_fn)
     )

@@ -1,5 +1,6 @@
 from transformer_lens import HookedTransformer
-from utils import get_device
+
+from model_interfaces.utils import get_device
 
 
 def get_model() -> HookedTransformer:
